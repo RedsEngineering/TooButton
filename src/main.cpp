@@ -340,7 +340,8 @@ void longPressStart2()
 {
   maxflash2 = 0;
    Debug.println("Button 2 longPress start");
- //octoPrint(configManager.data.button2_hold);
+    maxflash1 = 0;
+    octoPrnt(configManager.data.button2_hold);
 } // longPressStart2
 
 
