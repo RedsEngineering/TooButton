@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 
 export const cPrimary = "#0055ff"; 
 export const cPrimaryHover = "#0066ee"; 
-export const cHeader = "#111";
+export const cHeader = "#323ebe";
 export const cHeaderHover = "#333"; 
 export const cSecondary = "#ff00cc";
 export const cSecondaryHover = "#cc0099"; 
@@ -24,8 +24,8 @@ export const GlobalStyle = createGlobalStyle`
     ${normalize}
 
     body {
-        font-size:1.2em;
-        line-height:1.4em;
+        font-size:1em;
+        line-height:1.1em;
 
         @media (max-width: 500px) 
         { 
@@ -117,7 +117,7 @@ export const Header = styled(HeaderSrc)`
     @media (max-width: 1024px) 
     {    
         h1 {
-            font-size:1.3em;
+            font-size:1em;
         }
     }
 
