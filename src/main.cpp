@@ -188,6 +188,12 @@ void octoPrnt(int opcall)
      //  Debug.println("Connected to Octoprint");
       switch (opcall)
       {
+      
+      case 0:
+      {
+        break;
+      }
+      
       case 1:
         if (power == 0) {
          Debug.println("Octoprint() call");

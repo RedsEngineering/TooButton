@@ -17,6 +17,7 @@ struct configData
 	uint16_t led2_color;
 	uint16_t led_brightness;
 	bool enableledflash;
+	char projectVersion[32];
 };
 
 extern uint32_t configVersion;

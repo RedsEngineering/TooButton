@@ -142,9 +142,18 @@
         "type": "bool",
         "value": true
         
-    }
+    },
 
     
+     {
+        "name": "projectVersion",
+        "label": "Project Version",
+        "type": "char",
+        "length": 32,
+        "value": "2.1.2.1",
+        "hidden": true
+    }
+
 
     
    
