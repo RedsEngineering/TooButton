@@ -52,7 +52,7 @@ char *octoprint_host = configManager.data.octoprintip; // Or your hostname. Comm
 const int octoprint_httpPort = 80;                     //If you are connecting through a router this will work, but you need a random port forwarded to the OctoPrint server from your router. Enter that port here if you are external
 //String octoprint_apikey = "C2CF813EAF6E49B1A3DC9B1C3E4C8728"; //See top of file or GIT Readme about getting API key good key
 char *octoprint_apikey = configManager.data.octoprintapikey;
-unsigned long api_mtbs = 10000; //mean time between api requests (10 seconds)
+unsigned long api_mtbs = 5000; //mean time between api requests (10 seconds)
 unsigned long api_lasttime = 0; //last time api request has been done
 byte connection_retry = 0;
 byte point = 0;
@@ -69,7 +69,7 @@ const long interval = 50;
 
 String luvmsg = "";
 //const char* tplinkip = "10.0.0.117";
-const char *tplinkip = configManager.data.tplinktip;
+//const char *tplinkip = configManager.data.tplinktip;
 char clientBuf[64];
 int power = 0;
 struct task
@@ -128,7 +128,7 @@ void smartplug()
 
     WiFiClient client;
 
-    if (!client.connect(tplinkip, 9999))
+    if (!client.connect(configManager.data.tplinktip, 9999))
     {
       Debug.println("connection to tplink fail");
 
@@ -153,7 +153,7 @@ void smartplug()
 
     WiFiClient client;
 
-    if (!client.connect(tplinkip, 9999))
+    if (!client.connect(configManager.data.tplinktip, 9999))
     {
       Debug.println("connection to tplink fail");
 
@@ -177,9 +177,9 @@ void smartplug()
 
 void octoPrnt(int opcall)
 {
-
+ Debug.println("Octoprint() call");
   WiFiClient client1;
-  OctoprintApi api(client1, octoprint_host, octoprint_httpPort, octoprint_apikey); //If using IP address
+  OctoprintApi api(client1, octoprint_host, octoprint_httpPort, octoprint_apikey); 
 
   if (millis() - api_lasttime > api_mtbs || api_lasttime == 0)
   { //Check if time has expired to go check OctoPrint
@@ -190,13 +190,24 @@ void octoPrnt(int opcall)
       {
       case 1:
         if (power == 0) {
-      if(configManager.data.tplinktip != "") {
+         Debug.println("Octoprint() call");
+    
+           Debug.printf("Power status: %s\n", configManager.data.tplinktip);
+     if(strcmp(configManager.data.tplinktip, "0.0.0.0") == 0){
+     
+        Debug.println("Cycling internal power status to On. No valid IP for Smart Plug.");
+        power = 1;
+      }
+     else {
         Debug.printf("Power status: %d\n", power);
         Debug.println("Turning Smartplug On");
         Debug.println("");
         delay(200);
         smartplug();
-      }
+
+
+     }
+     
       }
        else
        {
@@ -204,17 +215,25 @@ void octoPrnt(int opcall)
         Debug.printf("Power status: %d\n", power);
        
        
-        Debug.println("Shutting down Octoprint, delay 15 seconds");
+       
         delay(200);
         api.octoPrintCoreShutdown();
-        
-        if(configManager.data.tplinktip != "") {
+       
+        if(strcmp(configManager.data.tplinktip, "0.0.0.0") != 0){
+         Debug.println("Turning smartplug Off, delay 15 seconds.");
         delay(15000);
-        Debug.println("Turning smartplug Off");
+      
         Debug.println("");
         delay(200);
         smartplug();
         }
+        else
+        {
+         
+        Debug.println("Cycling internal power status to off. No valid IP for Smart Plug. Just shutting down Octoprint.");
+         power=0;
+        }
+
        }
         
         break;
@@ -261,6 +280,12 @@ void octoPrnt(int opcall)
     api_lasttime = millis(); //Set api_lasttime to current milliseconds run
   }
 
+  else
+  {
+Debug.println("Mean time between OctoPrint API calls 5 seconds.");
+
+  }
+
 } // octoPrint
 
 
@@ -269,6 +294,7 @@ void click1()
  
   maxflash1 = 1;
   Debug.println("Button 1 click.");
+  Debug.printf("Power status: %d\n", power);
   octoPrnt(configManager.data.button1_click);
 } // click1
 
