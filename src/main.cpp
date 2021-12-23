@@ -24,7 +24,7 @@ configData data;
 #define NUM_LEDS 3
 
 #define BRIGHTNESS 255
-#define FRAMES_PER_SECOND 30
+#define FRAMES_PER_SECOND 60
 #define FASTLED_ESP8266_RAW_PIN_ORDER
 
 #define FASTLED_ALLOW_INTERRUPTS 1
@@ -178,6 +178,8 @@ void smartplug()
 void octoPrnt(int opcall)
 {
  Debug.println("Octoprint() call");
+   leds[0] = led_color[led1_color];
+    FastLED.show();
   WiFiClient client1;
   OctoprintApi api(client1, octoprint_host, octoprint_httpPort, octoprint_apikey); 
 
@@ -291,14 +293,14 @@ void octoPrnt(int opcall)
 Debug.println("Mean time between OctoPrint API calls 5 seconds.");
 
   }
-
+ 
 } // octoPrint
 
 
 void click1()
 {
  
-  maxflash1 = 1;
+maxflash1 = 1;
   Debug.println("Button 1 click.");
   Debug.printf("Power status: %d\n", power);
   octoPrnt(configManager.data.button1_click);
@@ -306,16 +308,16 @@ void click1()
 
 void click2()
 {
-  maxflash2 = 1;
+ maxflash2 = 1;
   Debug.println("Button 2 click.");
   octoPrnt(configManager.data.button2_click);
 } // click2
 
 void doubleclick1()
 {
-
+maxflash1 = 1;
   Debug.println("Button 1 doubleclick.");
-  maxflash1 = 1;
+  
 octoPrnt(configManager.data.button1_doubleclick);
 } // doubleclick1
 
@@ -333,16 +335,27 @@ void longPressStart1()
 octoPrnt(configManager.data.button1_hold);
 } // longPress1
 
-
-
-
 void longPressStart2()
 {
   maxflash2 = 0;
    Debug.println("Button 2 longPress start");
-    maxflash1 = 0;
-    octoPrnt(configManager.data.button2_hold);
+ octoPrnt(configManager.data.button2_hold);
 } // longPressStart2
+
+void longPressStop2()
+{
+  maxflash2 = 1;
+   Debug.println("Button 1 longPress stop");
+ 
+} // longPressStop2
+
+void longPressStop1()
+{
+  maxflash1 = 1;
+   Debug.println("Button 2 longPress stop");
+ 
+} // longPressStop2
+
 
 
 void setup()
@@ -371,9 +384,9 @@ void setup()
   button2.attachClick(click2);
   button2.attachDoubleClick(doubleclick2);
   button2.attachLongPressStart(longPressStart2);
-  //button2.attachLongPressStop(longPressStop2);
+  button2.attachLongPressStop(longPressStop2);
   //button2.attachDuringLongPress(longPressStart2);
-  //button1.attachLongPressStop(longPressStop1);
+  button1.attachLongPressStop(longPressStop1);
   //button1.attachDuringLongPress(longPressStart1);
   button1.setDebounceTicks(25);
   button2.setDebounceTicks(25);
@@ -388,21 +401,14 @@ void loop()
   int led_color1;
   int led_color2;
   int brightness;
-
-  if (led_color1 != configManager.data.led1_color)
-  {
-    led1_color = configManager.data.led1_color;
-    leds[0] = led_color[led1_color];
-    FastLED.show();
-  }
-
-  if (led_color2 != configManager.data.led2_color)
-  {
+  led1_color = configManager.data.led1_color;
     led2_color = configManager.data.led2_color;
     leds[1] = led_color[led2_color];
     FastLED.show();
-  }
-
+    leds[0] = led_color[led1_color];
+    FastLED.show();
+   
+  
   if (brightness != (configManager.data.led_brightness * 25.5))
   {
 
