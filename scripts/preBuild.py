@@ -61,7 +61,7 @@ if dash:
 if certs:
     preBuildCertificatesFun(domains, openssl)
 
-#Versioning
+# Versioning
 
 def get_firmware_specifier_build_flag():    
     #ret = subprocess.run(["git", "describe"], stdout=subprocess.PIPE, text=True) #Uses only annotated tags
