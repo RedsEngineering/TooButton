@@ -388,11 +388,8 @@ void setup()
   WiFiManager.begin(configManager.data.projectName);
   timeSync.begin();
   dash.begin(500);
- //configManager.data.projectVersion = "test112345678987654";
   strcpy(configManager.data.projectVersion, AUTO_VERSION);
-  // Initialize the server (telnet or web socket) of RemoteDebug
   Debug.begin(HOST_NAME);
-
   button1.attachClick(click1);
   button1.attachDoubleClick(doubleclick1);
   button1.attachLongPressStart(longPressStart1);

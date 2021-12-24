@@ -24,12 +24,12 @@ export const GlobalStyle = createGlobalStyle`
     ${normalize}
 
     body {
-        font-size:1em;
+        font-size:0.9em;
         line-height:1.1em;
 
         @media (max-width: 500px) 
         { 
-            font-size:1em;
+            font-size:0.9em;
         }
     }
 
