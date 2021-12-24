@@ -14,6 +14,10 @@
 //#include <ESP_Mail_Client.h>
 #define HOST_NAME "Too Button"
 
+
+#define XSTR(x) #x
+#define STR(x) XSTR(x)
+
 #define FASTLED_ALLOW_INTERRUPTS 0
 #include <FastLED.h>
 
@@ -48,6 +52,7 @@ int led1_color = 0;
 int led2_color = 0;
 //IPAdress ip = configManager.data.octoprintip;
 //IPAddress ip(192, 168, 2, 191);  
+//char32_t  version =  AUTO_VERSION;
 char *octoprint_host = configManager.data.octoprintip; // Or your hostname. Comment out one or the other.
 const int octoprint_httpPort = 80;                     //If you are connecting through a router this will work, but you need a random port forwarded to the OctoPrint server from your router. Enter that port here if you are external
 //String octoprint_apikey = "C2CF813EAF6E49B1A3DC9B1C3E4C8728"; //See top of file or GIT Readme about getting API key good key
@@ -60,6 +65,7 @@ byte point = 0;
 long printed_timeout = 3600000; //60 mins in milliseconds - timeout after printing completed, to clear strip
 long printed_timeout_timer = printed_timeout;
 //dashboardData data;
+//strcpy(configManager.data.projectVersion,"copy successful");
 
 int led1;
 int led2;
@@ -303,6 +309,15 @@ void click1()
 maxflash1 = 1;
   Debug.println("Button 1 click.");
   Debug.printf("Power status: %d\n", power);
+ //Debug.println(AUTO_VERSION);  
+
+
+Debug.println(AUTO_VERSION);  
+
+ //  char firmware_char_array[] = AUTO_VERSION;
+ // Debug.println(firmware_char_array, sizeof(firmware_char_array));
+
+
   octoPrnt(configManager.data.button1_click);
 } // click1
 
@@ -373,7 +388,8 @@ void setup()
   WiFiManager.begin(configManager.data.projectName);
   timeSync.begin();
   dash.begin(500);
-
+ //configManager.data.projectVersion = "test112345678987654";
+  strcpy(configManager.data.projectVersion, AUTO_VERSION);
   // Initialize the server (telnet or web socket) of RemoteDebug
   Debug.begin(HOST_NAME);
 

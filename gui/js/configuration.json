@@ -149,7 +149,7 @@
         "name": "projectVersion",
         "label": "Project Version",
         "type": "char",
-        "length": 32,
+        "length": 20,
         "value": "2.1.2.1",
         "hidden": true
     }
