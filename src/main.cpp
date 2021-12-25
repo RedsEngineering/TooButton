@@ -444,6 +444,8 @@ void loop()
     FastLED.show();
     leds[0] = led_color[led1_color];
     FastLED.show();
+    char *octoprint_host = configManager.data.octoprintip; // Or your hostname. Comment out one or the other.
+    char *octoprint_apikey = configManager.data.octoprintapikey;
     configManager.save();
   }
 
