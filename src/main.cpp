@@ -54,10 +54,11 @@ int led2_color = 0;
 //IPAddress ip(192, 168, 2, 191);  
 //char32_t  version =  AUTO_VERSION;
 char *octoprint_host = configManager.data.octoprintip; // Or your hostname. Comment out one or the other.
-const int octoprint_httpPort = 80;                     //If you are connecting through a router this will work, but you need a random port forwarded to the OctoPrint server from your router. Enter that port here if you are external
+//const int octoprint_httpPort = 5000;                     //If you are connecting through a router this will work, but you need a random port forwarded to the OctoPrint server from your router. Enter that port here if you are external
+const int octoprint_httpPort = configManager.data.octoprintport;
 //String octoprint_apikey = "C2CF813EAF6E49B1A3DC9B1C3E4C8728"; //See top of file or GIT Readme about getting API key good key
 char *octoprint_apikey = configManager.data.octoprintapikey;
-unsigned long api_mtbs = 5000; //mean time between api requests (10 seconds)
+unsigned long api_mtbs = 5000; //mean time between api requests (5 seconds)
 unsigned long api_lasttime = 0; //last time api request has been done
 byte connection_retry = 0;
 byte point = 0;
@@ -216,6 +217,7 @@ void octoPrnt(int opcall)
         Debug.printf("Power status: %d\n", power);
         Debug.println("Turning Smartplug On");
         Debug.println("");
+        
         delay(200);
         smartplug();
 

@@ -25,6 +25,16 @@
     },
     
     {
+        "name": "octoprintport",
+        "label": "Octoprint Port Number",
+        "type": "uint16_t",
+        "length": 40,
+        "value": 5000
+    },
+  
+  
+  
+    {
         "name": "tplinktip",
         "label": "TPLink IP Address",
         "type": "char",
