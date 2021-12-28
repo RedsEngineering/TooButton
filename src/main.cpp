@@ -10,7 +10,7 @@
 #include "RemoteDebug.h"
 #include "OneButton.h"
 #include "timeSync.h"
-#include <OctoPrintAPI.h>
+
 //#include <ESP_Mail_Client.h>
 #define HOST_NAME "Too Button"
 
@@ -32,6 +32,11 @@ configData data;
 #define FASTLED_ESP8266_RAW_PIN_ORDER
 
 #define FASTLED_ALLOW_INTERRUPTS 1
+
+String OCTO_API_KEY = configManager.data.octoprintapikey;  // Via: OctoPrint > Settings > API
+//strcpy(configManager.data.octoprintapikey, OCTO_API_KEY);
+int       OCTO_PORT = 5000;
+//String    OCTO_HOST = configManager.data.octoprintip;
 //bool gReverseDirection = false;
  void octoprint(int);
 CRGB leds[NUM_LEDS];
@@ -50,14 +55,13 @@ CRGB led_color[] = {
 
 int led1_color = 0;
 int led2_color = 0;
-//IPAdress ip = configManager.data.octoprintip;
-//IPAddress ip(192, 168, 2, 191);  
-//char32_t  version =  AUTO_VERSION;
-char *octoprint_host = configManager.data.octoprintip; // Or your hostname. Comment out one or the other.
-//const int octoprint_httpPort = 5000;                     //If you are connecting through a router this will work, but you need a random port forwarded to the OctoPrint server from your router. Enter that port here if you are external
-const int octoprint_httpPort = configManager.data.octoprintport;
-//String octoprint_apikey = "C2CF813EAF6E49B1A3DC9B1C3E4C8728"; //See top of file or GIT Readme about getting API key good key
-char *octoprint_apikey = configManager.data.octoprintapikey;
+#define ROW 10
+#define COL  5
+
+char ArrayOfString[ROW][COL];
+
+
+
 unsigned long api_mtbs = 5000; //mean time between api requests (5 seconds)
 unsigned long api_lasttime = 0; //last time api request has been done
 byte connection_retry = 0;
@@ -127,6 +131,44 @@ unsigned long now = millis();
 
 RemoteDebug Debug;
 
+
+
+void sendcommand(String uri, String postdata = ""){
+
+WiFiClient client3;
+IPAddress addr;
+//String postData= "{\"commands\":[\"M300\",\"S440\",\"P200\"]}";
+//String uri ="/api/printer/command";
+//addr.fromString(OCTO_HOST);
+if (!client3.connect(configManager.data.octoprintip, configManager.data.octoprintport)){
+    Debug.println("octoRequest Connection failed!");
+    return;
+  } else {
+    Debug.println("Connected to server!");
+    
+    client3.println("POST " +uri+" HTTP/1.1");
+   // client3.println("Host: " + OCTO_HOST);
+     client3.printf("Host: %s\n", configManager.data.octoprintip);
+    client3.println("Cache-Control: no-cache");
+     
+      client3.printf("X-Api-Key: %s\n", configManager.data.octoprintapikey);
+      client3.println("postData JSON: "+postdata);
+      client3.println("Content-Type: application/json");
+      client3.print("Content-Length: ");
+      client3.println(postdata.length());
+   
+    client3.println("");
+  
+      client3.println(postdata);
+  
+    client3.println("");
+
+    client3.stop();
+    return;   
+
+  }
+
+}
 void smartplug()
 {
 
@@ -188,7 +230,7 @@ void octoPrnt(int opcall)
    leds[0] = led_color[led1_color];
     FastLED.show();
   WiFiClient client1;
-  OctoprintApi api(client1, octoprint_host, octoprint_httpPort, octoprint_apikey); 
+ // OctoprintApi api(client1, octoprint_host, octoprint_httpPort, octoprint_apikey); 
 
   if (millis() - api_lasttime > api_mtbs || api_lasttime == 0)
   { //Check if time has expired to go check OctoPrint
@@ -207,7 +249,7 @@ void octoPrnt(int opcall)
         if (power == 0) {
          Debug.println("Octoprint() call");
     
-           Debug.printf("Power status: %s\n", configManager.data.tplinktip);
+          Debug.printf("Power status: %s\n", configManager.data.tplinktip);
      if(strcmp(configManager.data.tplinktip, "0.0.0.0") == 0){
      
         Debug.println("Cycling internal power status to On. No valid IP for Smart Plug.");
@@ -233,7 +275,10 @@ void octoPrnt(int opcall)
        
        
         delay(200);
-        api.octoPrintCoreShutdown();
+        
+        sendcommand("/api/system/commands/core/shutdown", "");
+        
+       
        
         if(strcmp(configManager.data.tplinktip, "0.0.0.0") != 0){
          Debug.println("Turning smartplug Off, delay 15 seconds.");
@@ -255,28 +300,33 @@ void octoPrnt(int opcall)
         break;
 
       case 2:
-        
+               
          Debug.println("Octoprint Start Job");
          Debug.println("");
-         api.octoPrintJobStart();
+        
+        sendcommand("/api/job", "{\"command\": start}");
+        
+        // api.octoPrintJobStart();
         break;
       case 3:
        
            Debug.println("Octoprint Cancel Job");
            Debug.println("");
-          api.octoPrintJobCancel();
+         sendcommand("/api/job", "{\"command\": cancel}");
           break;
       case 4:
         
         Debug.println("Octoprint Pause Job");
         Debug.println("");
-        api.octoPrintJobPause();
+         sendcommand("/api/job", "{\"command\": pause}");
         break;
       case 5:
           
               Debug.println("Octoprint Resume Job");
               Debug.println("");
-              api.octoPrintJobResume();
+              sendcommand("/api/job", "{\"command\": resume}");
+             
+              //api.octoPrintJobResume();
         break;
       
        
@@ -285,7 +335,9 @@ void octoPrnt(int opcall)
       
          Debug.println("Octoprint Restart Job");
          Debug.println("");
-           api.octoPrintJobRestart();
+           sendcommand("/api/job", "{\"command\": restart}");
+          
+          // api.octoPrintJobRestart();
         break;
       default:
         // if nothing else matches, do the default
@@ -375,6 +427,35 @@ void longPressStop1()
 
 
 
+
+
+size_t vSeparateSringByComma (char* string)
+{
+    const char *delims = ",\n";
+    char *s = string;
+    size_t n = 0, len;
+
+    for (s = strtok (s, delims); s && n < ROW; s = strtok (NULL, delims))
+        if ((len = strlen (s)) < COL)
+            strcpy (ArrayOfString[n++], s);
+        else
+            fprintf (stderr, "error: '%s' exceeds COL - 1 chars.\n", s);
+
+    return n;
+}
+
+ 
+  
+ 
+
+
+
+
+
+
+
+
+
 void setup()
 {
 
@@ -446,8 +527,8 @@ void loop()
     FastLED.show();
     leds[0] = led_color[led1_color];
     FastLED.show();
-    char *octoprint_host = configManager.data.octoprintip; // Or your hostname. Comment out one or the other.
-    char *octoprint_apikey = configManager.data.octoprintapikey;
+    //char *octoprint_host = configManager.data.octoprintip; // Or your hostname. Comment out one or the other.
+    //char *octoprint_apikey = configManager.data.octoprintapikey;
     configManager.save();
   }
 
