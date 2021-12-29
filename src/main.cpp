@@ -61,6 +61,7 @@ int led_color1;
 int feedrate=100;
 char gcode[70];
 char CMD[40];
+char version[20];
 unsigned long api_mtbs = 5000; //mean time between api requests (5 seconds)
 unsigned long api_lasttime = 0; //last time api request has been done
 byte connection_retry = 0;
@@ -497,7 +498,7 @@ maxflash1 = 1;
 
 
 
-Debug.println(AUTO_VERSION);  
+ Debug.println(AUTO_VERSION);  
 
  //  char firmware_char_array[] = AUTO_VERSION;
  // Debug.println(firmware_char_array, sizeof(firmware_char_array));
@@ -580,7 +581,11 @@ void setup()
   WiFiManager.begin(configManager.data.projectName);
   timeSync.begin();
   dash.begin(500);
-  strcpy(configManager.data.projectVersion, AUTO_VERSION);
+  strcpy (version, AUTO_VERSION);
+  int len = strlen(version);
+  version[len-9] = '\0';
+  
+  strcpy(configManager.data.projectVersion, version);
   Debug.begin(HOST_NAME);
   button1.attachClick(click1);
   button1.attachDoubleClick(doubleclick1);
