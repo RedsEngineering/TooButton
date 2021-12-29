@@ -240,13 +240,13 @@ void smartplug()
 void octoPrnt(int opcall)
 {
  Debug.println("Octoprint() call");
+  delay(200);
    leds[0] = led_color[led1_color];
     FastLED.show();
   WiFiClient client1;
  // OctoprintApi api(client1, octoprint_host, octoprint_httpPort, octoprint_apikey); 
 
-  if (millis() - api_lasttime > api_mtbs || api_lasttime == 0)
-  { //Check if time has expired to go check OctoPrint
+ 
     if (WiFi.status() == WL_CONNECTED)
     { //Check WiFi connection status
      //  Debug.println("Connected to Octoprint");
@@ -369,19 +369,36 @@ void octoPrnt(int opcall)
      {
          feedrate=feedrate+2;
        
-              strcpy(CMD, "{\"command\": feedrate\", \"factor\" : 102}"); 
-            sendcommand("/api/printer/command", CMD);
-           Debug.printf("{\"command\": \"feedrate\", \"factor\": 102}\n");
+              strcpy(CMD, "{\"command\": \"feedrate\", \"factor\": "); 
+              char buffer[10];
+              snprintf(buffer, 10, "%d", feedrate);
+             
+              strcat(CMD, buffer);
+              strcat(CMD, "}");
+
+        Debug.printf("Feedrate +2 percent%s\n", CMD);
+      sendcommand("/api/printer/command", CMD);
+
+
+
      break;
      }
      case 8:
      {
-        feedrate=feedrate-2;
+         feedrate=feedrate-2;
        
-            strcpy(CMD, "{\"command\": feedrate\", \"factor\" : 98}"); 
-           
-            sendcommand("/api/printer/command", CMD);
-           Debug.printf("{\"command\": \"feedrate\", \"factor\": 98}\n");
+              strcpy(CMD, "{\"command\": \"feedrate\", \"factor\": "); 
+              char buffer[10];
+              snprintf(buffer, 10, "%d", feedrate);
+             
+              strcat(CMD, buffer);
+              strcat(CMD, "}");
+
+        
+        Debug.printf("Feedrate -2 percent%s\n", CMD);
+      sendcommand("/api/printer/command", CMD);
+
+
      break;
      }
      case 9:
@@ -395,7 +412,7 @@ void octoPrnt(int opcall)
        strcpy(CMD, "{\"command\": \"");
        strcat(CMD, ArrayOfString[i]);
         strcat(CMD, "\"}");
-        Debug.printf("Custom Gcode command 1%s\n", CMD);
+      Debug.printf("Feedrate +2% 1%s\n", CMD);
       sendcommand("/api/printer/command", CMD);
    }  
               
@@ -439,13 +456,9 @@ void octoPrnt(int opcall)
       }
     }
     api_lasttime = millis(); //Set api_lasttime to current milliseconds run
-  }
+  
 
-  else
-  {
-Debug.println("Mean time between OctoPrint API calls 5 seconds.");
-
-  }
+ 
  
 } // octoPrint
 
