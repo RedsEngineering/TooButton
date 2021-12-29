@@ -48,8 +48,8 @@
         "length": 40,
         "value": 1,
         "control": "select", 
-        "options": [0, 1, 2, 3, 4, 5, 6 ],
-        "optionLabels": [ "No Action", "Power Cycle", "Start Job","Cancel Job", "Pause Job", "Resume Job", "Restart Job"] 
+        "options": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+        "optionLabels": [ "No Action", "Power Cycle", "Start Job","Cancel Job", "Pause Job", "Resume Job", "Restart Job", "Feed Rate +2%", "Feed Rate -2%", "Custom G-Code Command 1","Custom G-Code Command 2", "Beep" ] 
     },
 
     {
@@ -59,8 +59,8 @@
         "length": 40,
         "value": 0,
         "control": "select", 
-        "options": [0, 1, 2, 3, 4, 5, 6 ],
-        "optionLabels": [ "No Action", "Power Cycle", "Start Job","Cancel Job", "Pause Job", "Resume Job", "Restart Job"] 
+        "options": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+        "optionLabels": [ "No Action", "Power Cycle", "Start Job","Cancel Job", "Pause Job", "Resume Job", "Restart Job", "Feed Rate +2%", "Feed Rate -2%", "Custom G-Code Command 1","Custom G-Code Command 2", "Beep" ] 
     },
 
     {
@@ -70,8 +70,8 @@
         "length": 40,
         "value": 0,
         "control": "select", 
-        "options": [0, 1, 2, 3, 4, 5, 6 ],
-        "optionLabels": [ "No Action", "Power Cycle", "Start Job","Cancel Job", "Pause Job", "Resume Job", "Restart Job"] 
+        "options": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+        "optionLabels": [ "No Action", "Power Cycle", "Start Job","Cancel Job", "Pause Job", "Resume Job", "Restart Job", "Feed Rate +2%", "Feed Rate -2%", "Custom G-Code Command 1","Custom G-Code Command 2", "Beep" ] 
     },
 
 
@@ -82,8 +82,8 @@
         "length": 40,
         "value": 0,
         "control": "select", 
-        "options": [0, 1, 2, 3, 4, 5, 6 ],
-        "optionLabels": [ "No Action", "Power Cycle", "Start Job","Cancel Job", "Pause Job", "Resume Job", "Restart Job"] 
+        "options": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+        "optionLabels": [ "No Action", "Power Cycle", "Start Job","Cancel Job", "Pause Job", "Resume Job", "Restart Job", "Feed Rate +2%", "Feed Rate -2%", "Custom G-Code Command 1","Custom G-Code Command 2", "Beep" ] 
     },
 
     {
@@ -93,8 +93,8 @@
         "length": 40,
         "value": 0,
         "control": "select", 
-        "options": [0, 1, 2, 3, 4, 5, 6 ],
-        "optionLabels": [ "No Action","Power Cycle", "Start Job","Cancel Job", "Pause Job", "Resume Job", "Restart Job"] 
+        "options": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+        "optionLabels": [ "No Action", "Power Cycle", "Start Job","Cancel Job", "Pause Job", "Resume Job", "Restart Job", "Feed Rate +2%", "Feed Rate -2%", "Custom G-Code Command 1","Custom G-Code Command 2", "Beep" ] 
     },
 
     {
@@ -104,10 +104,9 @@
         "length": 40,
         "value": 0,
         "control": "select", 
-        "options": [0, 1, 2, 3, 4, 5, 6 ],
-        "optionLabels": [ "No Action", "Power Cycle", "Start Job","Cancel Job", "Pause Job", "Resume Job", "Restart Job"] 
+        "options": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+        "optionLabels": [ "No Action", "Power Cycle", "Start Job","Cancel Job", "Pause Job", "Resume Job", "Restart Job", "Feed Rate +2%", "Feed Rate -2%", "Custom G-Code Command 1","Custom G-Code Command 2", "Beep" ] 
     },
-
        
     {
         "name": "led1_color", 
@@ -143,9 +142,23 @@
         "optionLabels": [ "Level 1", "Level 2", "Level 3","Level 4", "Level 5", "Level 6", "Level 7", "Level 8","Level 9", "Level 10" ] 
     },
 
+    {
+        "name": "customgcode1",
+        "label": "Custom Gcode 1",
+        "type": "char",
+        "length": 70,
+        "value": "M300,S340,P200"
+    },
+
+    {
+        "name": "customgcode2",
+        "label": "Custom Gcode 2",
+        "type": "char",
+        "length": 70,
+        "value": "M300,S340,P200"
+    },
 
 
-   
     {
         "name": "enableledflash", 
         "label": "Enable LED Flash", 

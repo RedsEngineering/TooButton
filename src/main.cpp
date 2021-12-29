@@ -33,11 +33,7 @@ configData data;
 
 #define FASTLED_ALLOW_INTERRUPTS 1
 
-String OCTO_API_KEY = configManager.data.octoprintapikey;  // Via: OctoPrint > Settings > API
-//strcpy(configManager.data.octoprintapikey, OCTO_API_KEY);
-int       OCTO_PORT = 5000;
-//String    OCTO_HOST = configManager.data.octoprintip;
-//bool gReverseDirection = false;
+
  void octoprint(int);
 CRGB leds[NUM_LEDS];
 CRGB led_color[] = {
@@ -55,13 +51,14 @@ CRGB led_color[] = {
 
 int led1_color = 0;
 int led2_color = 0;
-#define ROW 10
-#define COL  5
+#define ROW 20
+#define COL  20
 
 char ArrayOfString[ROW][COL];
 
-
-
+int feedrate=100;
+char gcode[70];
+char CMD[40];
 unsigned long api_mtbs = 5000; //mean time between api requests (5 seconds)
 unsigned long api_lasttime = 0; //last time api request has been done
 byte connection_retry = 0;
@@ -133,6 +130,26 @@ RemoteDebug Debug;
 
 
 
+
+size_t vSeparateSringByComma (char* string)
+{
+    const char *delims = ",\n";
+    char *s = string;
+    size_t n = 0, len;
+
+    for (s = strtok (s, delims); s && n < ROW; s = strtok (NULL, delims))
+        if ((len = strlen (s)) < COL)
+            strcpy (ArrayOfString[n++], s);
+        else
+            fprintf (stderr, "error: '%s' exceeds COL - 1 chars.\n", s);
+
+    return n;
+}
+
+
+
+
+
 void sendcommand(String uri, String postdata = ""){
 
 WiFiClient client3;
@@ -147,7 +164,7 @@ if (!client3.connect(configManager.data.octoprintip, configManager.data.octoprin
     Debug.println("Connected to server!");
     
     client3.println("POST " +uri+" HTTP/1.1");
-   // client3.println("Host: " + OCTO_HOST);
+   
      client3.printf("Host: %s\n", configManager.data.octoprintip);
     client3.println("Cache-Control: no-cache");
      
@@ -220,10 +237,6 @@ void smartplug()
   }
 }
 
-
-
-
-
 void octoPrnt(int opcall)
 {
  Debug.println("Octoprint() call");
@@ -246,6 +259,7 @@ void octoPrnt(int opcall)
       }
       
       case 1:
+       {
         if (power == 0) {
          Debug.println("Octoprint() call");
     
@@ -298,48 +312,127 @@ void octoPrnt(int opcall)
        }
         
         break;
-
+      }
       case 2:
-               
+       {        
          Debug.println("Octoprint Start Job");
          Debug.println("");
         
-        sendcommand("/api/job", "{\"command\": start}");
+         strcpy(CMD, "{\"command\": start}"); 
+        sendcommand("/api/job", CMD);
         
-        // api.octoPrintJobStart();
+               
         break;
+      }
       case 3:
-       
+       {
            Debug.println("Octoprint Cancel Job");
            Debug.println("");
-         sendcommand("/api/job", "{\"command\": cancel}");
+     
+          strcpy(CMD, "{\"command\": cancel}"); 
+         sendcommand("/api/job", CMD);
           break;
+       }
       case 4:
-        
+       { 
         Debug.println("Octoprint Pause Job");
         Debug.println("");
-         sendcommand("/api/job", "{\"command\": pause}");
+       
+          strcpy(CMD, "{\"command\": pause}"); 
+         sendcommand("/api/job", CMD);
         break;
+      }
       case 5:
-          
+      {    
               Debug.println("Octoprint Resume Job");
               Debug.println("");
-              sendcommand("/api/job", "{\"command\": resume}");
+        
+              strcpy(CMD, "{\"command\": resume}"); 
+              sendcommand("/api/job", CMD );
              
-              //api.octoPrintJobResume();
+           
         break;
-      
+      }
        
       case 6:
-      
-      
+      {
          Debug.println("Octoprint Restart Job");
          Debug.println("");
-           sendcommand("/api/job", "{\"command\": restart}");
+       
+           strcpy(CMD, "{\"command\": restart}"); 
+           sendcommand("/api/job", CMD);
           
-          // api.octoPrintJobRestart();
+         
         break;
-      default:
+      }
+     case 7:
+     {
+         feedrate=feedrate+2;
+       
+              strcpy(CMD, "{\"command\": feedrate\", \"factor\" : 102}"); 
+            sendcommand("/api/printer/command", CMD);
+           Debug.printf("{\"command\": \"feedrate\", \"factor\": 102}\n");
+     break;
+     }
+     case 8:
+     {
+        feedrate=feedrate-2;
+       
+            strcpy(CMD, "{\"command\": feedrate\", \"factor\" : 98}"); 
+           
+            sendcommand("/api/printer/command", CMD);
+           Debug.printf("{\"command\": \"feedrate\", \"factor\": 98}\n");
+     break;
+     }
+     case 9:
+     {
+       
+         strcpy(gcode, configManager.data.customgcode1);
+     size_t n = vSeparateSringByComma (gcode);
+
+    for (size_t i = 0; i < n; i++){
+     //  Debug.printf ("ArrayOfString[%zu] : '%s'\n", i, ArrayOfString[i]);
+       strcpy(CMD, "{\"command\": \"");
+       strcat(CMD, ArrayOfString[i]);
+        strcat(CMD, "\"}");
+        Debug.printf("Custom Gcode command 1%s\n", CMD);
+      sendcommand("/api/printer/command", CMD);
+   }  
+              
+              
+     break;
+     }
+     case 10:
+  {
+       
+         strcpy(gcode, configManager.data.customgcode2);
+     size_t n = vSeparateSringByComma (gcode);
+
+    for (size_t i = 0; i < n; i++){
+     //  Debug.printf ("ArrayOfString[%zu] : '%s'\n", i, ArrayOfString[i]);
+       strcpy(CMD, "{\"command\": \"");
+       strcat(CMD, ArrayOfString[i]);
+        strcat(CMD, "\"}");
+        Debug.printf("Custom Gcode command 2%s\n", CMD);
+      sendcommand("/api/printer/command", CMD);
+   }  
+              
+              
+     break;
+     }
+     break;
+
+    case 11:
+    {
+    strcpy(CMD, "{\"commands\":[\"M300\",\"S440\",\"P200\"]}");
+              sendcommand("/api/printer/command", CMD);
+                 Debug.printf("Beep %s\n", CMD);
+     break;
+    }
+     
+     
+     
+    default:
         // if nothing else matches, do the default
         // default is optional
         break;
@@ -364,6 +457,10 @@ maxflash1 = 1;
   Debug.println("Button 1 click.");
   Debug.printf("Power status: %d\n", power);
  //Debug.println(AUTO_VERSION);  
+
+
+
+
 
 
 Debug.println(AUTO_VERSION);  
@@ -429,32 +526,10 @@ void longPressStop1()
 
 
 
-size_t vSeparateSringByComma (char* string)
-{
-    const char *delims = ",\n";
-    char *s = string;
-    size_t n = 0, len;
 
-    for (s = strtok (s, delims); s && n < ROW; s = strtok (NULL, delims))
-        if ((len = strlen (s)) < COL)
-            strcpy (ArrayOfString[n++], s);
-        else
-            fprintf (stderr, "error: '%s' exceeds COL - 1 chars.\n", s);
-
-    return n;
-}
 
  
-  
  
-
-
-
-
-
-
-
-
 
 void setup()
 {
