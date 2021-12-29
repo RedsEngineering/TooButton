@@ -377,7 +377,7 @@ void octoPrnt(int opcall)
               strcat(CMD, "}");
 
         Debug.printf("Feedrate +2 percent%s\n", CMD);
-      sendcommand("/api/printer/command", CMD);
+      sendcommand("/api/printer/printhead", CMD);
 
 
 
@@ -396,7 +396,7 @@ void octoPrnt(int opcall)
 
         
         Debug.printf("Feedrate -2 percent%s\n", CMD);
-      sendcommand("/api/printer/command", CMD);
+      sendcommand("/api/printer/printhead", CMD);
 
 
      break;
