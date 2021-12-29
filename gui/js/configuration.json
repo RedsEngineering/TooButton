@@ -48,8 +48,8 @@
         "length": 40,
         "value": 1,
         "control": "select", 
-        "options": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
-        "optionLabels": [ "No Action", "Power Cycle", "Start Job","Cancel Job", "Pause Job", "Resume Job", "Restart Job", "Feed Rate +2%", "Feed Rate -2%", "Custom G-Code Command 1","Custom G-Code Command 2", "Beep" ] 
+        "options": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+        "optionLabels": [ "No Action", "Power Cycle", "Start Job","Cancel Job", "Pause Job", "Resume Job", "Restart Job", "Feed Rate +2%", "Feed Rate -2%", "Custom G-Code Command 1","Custom G-Code Command 2", "Pause-Resume", "Beep" ] 
     },
 
     {
@@ -59,8 +59,8 @@
         "length": 40,
         "value": 0,
         "control": "select", 
-        "options": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
-        "optionLabels": [ "No Action", "Power Cycle", "Start Job","Cancel Job", "Pause Job", "Resume Job", "Restart Job", "Feed Rate +2%", "Feed Rate -2%", "Custom G-Code Command 1","Custom G-Code Command 2", "Beep" ] 
+        "options": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+        "optionLabels": [ "No Action", "Power Cycle", "Start Job","Cancel Job", "Pause Job", "Resume Job", "Restart Job", "Feed Rate +2%", "Feed Rate -2%", "Custom G-Code Command 1","Custom G-Code Command 2", "Pause-Resume", "Beep" ] 
     },
 
     {
@@ -70,8 +70,8 @@
         "length": 40,
         "value": 0,
         "control": "select", 
-        "options": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
-        "optionLabels": [ "No Action", "Power Cycle", "Start Job","Cancel Job", "Pause Job", "Resume Job", "Restart Job", "Feed Rate +2%", "Feed Rate -2%", "Custom G-Code Command 1","Custom G-Code Command 2", "Beep" ] 
+        "options": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+        "optionLabels": [ "No Action", "Power Cycle", "Start Job","Cancel Job", "Pause Job", "Resume Job", "Restart Job", "Feed Rate +2%", "Feed Rate -2%", "Custom G-Code Command 1","Custom G-Code Command 2", "Pause-Resume", "Beep" ] 
     },
 
 
@@ -82,8 +82,8 @@
         "length": 40,
         "value": 0,
         "control": "select", 
-        "options": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
-        "optionLabels": [ "No Action", "Power Cycle", "Start Job","Cancel Job", "Pause Job", "Resume Job", "Restart Job", "Feed Rate +2%", "Feed Rate -2%", "Custom G-Code Command 1","Custom G-Code Command 2", "Beep" ] 
+        "options": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+        "optionLabels": [ "No Action", "Power Cycle", "Start Job","Cancel Job", "Pause Job", "Resume Job", "Restart Job", "Feed Rate +2%", "Feed Rate -2%", "Custom G-Code Command 1","Custom G-Code Command 2", "Pause-Resume", "Beep" ] 
     },
 
     {
@@ -93,8 +93,8 @@
         "length": 40,
         "value": 0,
         "control": "select", 
-        "options": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
-        "optionLabels": [ "No Action", "Power Cycle", "Start Job","Cancel Job", "Pause Job", "Resume Job", "Restart Job", "Feed Rate +2%", "Feed Rate -2%", "Custom G-Code Command 1","Custom G-Code Command 2", "Beep" ] 
+        "options": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+        "optionLabels": [ "No Action", "Power Cycle", "Start Job","Cancel Job", "Pause Job", "Resume Job", "Restart Job", "Feed Rate +2%", "Feed Rate -2%", "Custom G-Code Command 1","Custom G-Code Command 2", "Pause-Resume", "Beep" ] 
     },
 
     {
@@ -104,8 +104,8 @@
         "length": 40,
         "value": 0,
         "control": "select", 
-        "options": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
-        "optionLabels": [ "No Action", "Power Cycle", "Start Job","Cancel Job", "Pause Job", "Resume Job", "Restart Job", "Feed Rate +2%", "Feed Rate -2%", "Custom G-Code Command 1","Custom G-Code Command 2", "Beep" ] 
+        "options": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+        "optionLabels": [ "No Action", "Power Cycle", "Start Job","Cancel Job", "Pause Job", "Resume Job", "Restart Job", "Feed Rate +2%", "Feed Rate -2%", "Custom G-Code Command 1","Custom G-Code Command 2", "Pause-Resume", "Beep" ] 
     },
        
     {

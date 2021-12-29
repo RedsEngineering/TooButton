@@ -55,7 +55,9 @@ int led2_color = 0;
 #define COL  20
 
 char ArrayOfString[ROW][COL];
-
+int led_color1;
+  int led_color2;
+  int brightness;
 int feedrate=100;
 char gcode[70];
 char CMD[40];
@@ -318,7 +320,7 @@ void octoPrnt(int opcall)
          Debug.println("Octoprint Start Job");
          Debug.println("");
         
-         strcpy(CMD, "{\"command\": start}"); 
+         strcpy(CMD, "{\"command\": \"start\"}"); 
         sendcommand("/api/job", CMD);
         
                
@@ -329,8 +331,12 @@ void octoPrnt(int opcall)
            Debug.println("Octoprint Cancel Job");
            Debug.println("");
      
-          strcpy(CMD, "{\"command\": cancel}"); 
-         sendcommand("/api/job", CMD);
+          strcpy(CMD, "{\"command\": \"cancel\"}"); 
+          
+          sendcommand("/api/job", CMD);
+         
+        Debug.printf("Cancel Job\n%s\n", CMD);
+
           break;
        }
       case 4:
@@ -338,7 +344,7 @@ void octoPrnt(int opcall)
         Debug.println("Octoprint Pause Job");
         Debug.println("");
        
-          strcpy(CMD, "{\"command\": pause}"); 
+          strcpy(CMD, "{\"command\": \"pause\"}"); 
          sendcommand("/api/job", CMD);
         break;
       }
@@ -347,7 +353,7 @@ void octoPrnt(int opcall)
               Debug.println("Octoprint Resume Job");
               Debug.println("");
         
-              strcpy(CMD, "{\"command\": resume}"); 
+              strcpy(CMD, "{\"command\": \"resume\"}"); 
               sendcommand("/api/job", CMD );
              
            
@@ -359,7 +365,7 @@ void octoPrnt(int opcall)
          Debug.println("Octoprint Restart Job");
          Debug.println("");
        
-           strcpy(CMD, "{\"command\": restart}"); 
+           strcpy(CMD, "{\"command\": \"restart\"}"); 
            sendcommand("/api/job", CMD);
           
          
@@ -447,6 +453,21 @@ void octoPrnt(int opcall)
      break;
     }
      
+    case 12:
+    {
+
+    
+      strcpy(CMD, "{\"command\": \"pause\", \"action\": \"toggle\"}"); 
+             
+
+        
+        Debug.printf("Pause / Resume toggle%s\n", CMD);
+      sendcommand("/api/job", CMD);
+
+
+
+
+    } 
      
      
     default:
@@ -582,9 +603,7 @@ void setup()
 
 void loop()
 {
-  int led_color1;
-  int led_color2;
-  int brightness;
+  
   led1_color = configManager.data.led1_color;
     led2_color = configManager.data.led2_color;
     leds[1] = led_color[led2_color];
