@@ -448,9 +448,13 @@ void octoPrnt(int opcall)
 
     case 11:
     {
-    strcpy(CMD, "{\"commands\":[\"M300\",\"S440\",\"P200\"]}");
-              sendcommand("/api/printer/command", CMD);
-                 Debug.printf("Beep %s\n", CMD);
+     strcpy(CMD, "{\"command\": \"pause\", \"action\": \"toggle\"}"); 
+             
+
+        
+        Debug.printf("Pause / Resume toggle%s\n", CMD);
+      sendcommand("/api/job", CMD);
+                 
      break;
     }
      
@@ -458,14 +462,11 @@ void octoPrnt(int opcall)
     {
 
     
-      strcpy(CMD, "{\"command\": \"pause\", \"action\": \"toggle\"}"); 
-             
+     
 
-        
-        Debug.printf("Pause / Resume toggle%s\n", CMD);
-      sendcommand("/api/job", CMD);
-
-
+     strcpy(CMD, "{\"commands\":[\"M300\",\"S440\",\"P200\"]}");
+              sendcommand("/api/printer/command", CMD);
+                 Debug.printf("Beep %s\n", CMD);
 
 
     } 
