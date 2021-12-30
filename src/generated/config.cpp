@@ -1,7 +1,7 @@
 #include <Arduino.h>
 #include "config.h"
 
-uint32_t configVersion = 2562073383; //generated identifier to compare config with EEPROM
+uint32_t configVersion = 3566338668; //generated identifier to compare config with EEPROM
 
 const configData defaults PROGMEM =
 {
@@ -10,7 +10,7 @@ const configData defaults PROGMEM =
 	"Octoprint IP Address",
 	5000,
 	"0.0.0.0",
-	1,
+	0,
 	0,
 	0,
 	0,

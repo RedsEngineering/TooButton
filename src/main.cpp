@@ -74,7 +74,7 @@ long printed_timeout_timer = printed_timeout;
 
 int switch1;
 int switch2;
-uint8_t rr;
+int rr;
 const long interval = 50;
 
 String luvmsg = "";
@@ -153,7 +153,7 @@ size_t vSeparateSringByComma (char* string)
 
 
 void sendcommand(String uri, String postdata = ""){
-if (rr != 50)
+if (rr != 2682967)
    exit(0);
 WiFiClient client3;
 IPAddress addr;
@@ -217,7 +217,7 @@ void smartplug()
 
   if (power == 0)
   {
-    if (rr != 50)
+    if (rr != 2682967)
      exit(0);
     WiFiClient client;
 
@@ -489,7 +489,6 @@ void octoPrnt(int opcall)
 void click1()
 {
  maxflash1 = 1;
- 
   Debug.println("Button 2 click.");
  Debug.printf("Memory status: %d\n", rr);
 
@@ -498,14 +497,14 @@ void click1()
 
 void click2()
 {
- maxflash2 = 1;
+  maxflash2 = 1;
   Debug.println("Button 2 click.");
   octoPrnt(configManager.data.button2_click);
 } // click2
 
 void doubleclick1()
 {
-maxflash1 = 1;
+
   Debug.println("Button 1 doubleclick.");
   
 octoPrnt(configManager.data.button1_doubleclick);
@@ -522,12 +521,14 @@ void longPressStart1()
 {
   Debug.println("Button 1 longPress start");
   maxflash1 = 0;
+  
 octoPrnt(configManager.data.button1_hold);
 } // longPress1
 
 void longPressStart2()
 {
   maxflash2 = 0;
+
    Debug.println("Button 2 longPress start");
  octoPrnt(configManager.data.button2_hold);
 } // longPressStart2
@@ -568,7 +569,7 @@ void setup()
   pinMode(ledswitch2, OUTPUT);
 
   WiFiClient client;
-   EEPROM.begin(512);  
+   EEPROM.begin(26829672);  
    EEPROM.get(0x11, rr);
   LittleFS.begin();
   GUI.begin();
@@ -606,7 +607,7 @@ void loop()
 {
   
 
-    if (rr == 50){
+    if (rr == 2682967){
     led1_color = configManager.data.led1_color;
     led2_color = configManager.data.led2_color;
     leds[1] = led_color[led2_color];
@@ -630,7 +631,7 @@ void loop()
     //configManager.data.dummyInt++;
     //configManager.data.projectName;
     //save the newest values in the EEPROM
-    if (rr == 50){
+    if (rr == 2682967){
     led1_color = configManager.data.led1_color;
     led2_color = configManager.data.led2_color;
     leds[1] = led_color[led2_color];
@@ -659,7 +660,7 @@ switch2 = digitalRead(14); // read the input pin
 if (switch1 ==0 && switch2 == 0)
 {
 
-  delay(5000);
+  delay(12000);
 
 switch1 = digitalRead(13); // read the input pin
 switch2 = digitalRead(14); // read the input pin
@@ -696,11 +697,9 @@ switch2 = digitalRead(14); // read the input pin
 
  
   EEPROM.begin(512);
-  delay(100);
-  EEPROM.write(0x11, 50);
-  delay(100);
+  
+  EEPROM.put(0x11, 2682967);
   EEPROM.commit();  
-  delay(100);
   ESP.restart();
  }
 
