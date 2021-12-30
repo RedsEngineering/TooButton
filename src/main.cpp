@@ -96,13 +96,13 @@ void saveCallback()
 }
 
 OneButton button1 = OneButton(
-    14,   // Input pin for the button
+    13,   // Input pin for the button
     true, // Button is active LOW
     true  // Enable internal pull-up resistor
 );
 
 OneButton button2 = OneButton(
-    13,   // Input pin for the button
+    14,   // Input pin for the button
     true, // Button is active LOW
     true  // Enable internal pull-up resistor
 );
@@ -489,7 +489,7 @@ void octoPrnt(int opcall)
 void click1()
 {
  maxflash1 = 1;
-  Debug.println("Button 2 click.");
+  Debug.println("Button 1 click.");
  Debug.printf("Memory status: %d\n", rr);
 
  octoPrnt(configManager.data.button1_click);
@@ -536,14 +536,14 @@ void longPressStart2()
 void longPressStop2()
 {
   maxflash2 = 1;
-   Debug.println("Button 1 longPress stop");
+   Debug.println("Button 2 longPress stop");
  
 } // longPressStop2
 
 void longPressStop1()
 {
   maxflash1 = 1;
-   Debug.println("Button 2 longPress stop");
+   Debug.println("Button 1 longPress stop");
  
 } // longPressStop2
 
