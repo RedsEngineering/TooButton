@@ -96,13 +96,13 @@ void saveCallback()
 }
 
 OneButton button1 = OneButton(
-    13,   // Input pin for the button
+    14,   // Input pin for the button
     true, // Button is active LOW
     true  // Enable internal pull-up resistor
 );
 
 OneButton button2 = OneButton(
-    14,   // Input pin for the button
+    13,   // Input pin for the button
     true, // Button is active LOW
     true  // Enable internal pull-up resistor
 );
