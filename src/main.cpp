@@ -725,10 +725,10 @@ switch2 = digitalRead(14); // read the input pin
        
 
        
-          leds[1] = CRGB::Black;
+          leds[0] = CRGB::Black;
           FastLED.show();
           delay(50);
-          leds[1] = led_color[led1_color];
+          leds[0] = led_color[led1_color];
           FastLED.show();
         
       }
@@ -746,12 +746,12 @@ switch2 = digitalRead(14); // read the input pin
 
          
 
-            leds[0] = CRGB::Black;
+            leds[1] = CRGB::Black;
             FastLED.show();
 
             delay(50);
 
-            leds[0] = led_color[led2_color];
+            leds[1] = led_color[led2_color];
             FastLED.show();
 
             // set the LED with the ledState of the variable:
