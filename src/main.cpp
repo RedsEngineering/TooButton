@@ -10,7 +10,7 @@
 #include "RemoteDebug.h"
 #include "OneButton.h"
 #include "timeSync.h"
-
+#include <EEPROM.h>
 //#include <ESP_Mail_Client.h>
 #define HOST_NAME "Too Button"
 
@@ -72,10 +72,9 @@ long printed_timeout_timer = printed_timeout;
 //dashboardData data;
 //strcpy(configManager.data.projectVersion,"copy successful");
 
-int led1;
-int led2;
-
-unsigned long previousMillis = 0;
+int switch1;
+int switch2;
+uint8_t rr;
 const long interval = 50;
 
 String luvmsg = "";
@@ -126,7 +125,7 @@ int ledswitch3 = 5;
 int ledswitch4 = 1;
 unsigned long maxflash1 = 1;
 unsigned long maxflash2 = 1;
-
+int addr = 0;
 unsigned long now = millis();
 
 RemoteDebug Debug;
@@ -154,12 +153,11 @@ size_t vSeparateSringByComma (char* string)
 
 
 void sendcommand(String uri, String postdata = ""){
-
+if (rr != 50)
+   exit(0);
 WiFiClient client3;
 IPAddress addr;
-//String postData= "{\"commands\":[\"M300\",\"S440\",\"P200\"]}";
-//String uri ="/api/printer/command";
-//addr.fromString(OCTO_HOST);
+
 if (!client3.connect(configManager.data.octoprintip, configManager.data.octoprintport)){
     Debug.println("octoRequest Connection failed!");
     return;
@@ -219,7 +217,8 @@ void smartplug()
 
   if (power == 0)
   {
-
+    if (rr != 50)
+     exit(0);
     WiFiClient client;
 
     if (!client.connect(configManager.data.tplinktip, 9999))
@@ -242,12 +241,13 @@ void smartplug()
 
 void octoPrnt(int opcall)
 {
+ 
  Debug.println("Octoprint() call");
   delay(200);
    leds[0] = led_color[led1_color];
     FastLED.show();
-  WiFiClient client1;
- // OctoprintApi api(client1, octoprint_host, octoprint_httpPort, octoprint_apikey); 
+  
+ 
 
  
     if (WiFi.status() == WL_CONNECTED)
@@ -488,24 +488,12 @@ void octoPrnt(int opcall)
 
 void click1()
 {
+ maxflash1 = 1;
  
-maxflash1 = 1;
-  Debug.println("Button 1 click.");
-  Debug.printf("Power status: %d\n", power);
- //Debug.println(AUTO_VERSION);  
+  Debug.println("Button 2 click.");
+ Debug.printf("Memory status: %d\n", rr);
 
-
-
-
-
-
- Debug.println(AUTO_VERSION);  
-
- //  char firmware_char_array[] = AUTO_VERSION;
- // Debug.println(firmware_char_array, sizeof(firmware_char_array));
-
-
-  octoPrnt(configManager.data.button1_click);
+ octoPrnt(configManager.data.button1_click);
 } // click1
 
 void click2()
@@ -570,11 +558,18 @@ void longPressStop1()
 void setup()
 {
 
+ 
+
+
+  
+
+
   pinMode(ledswitch1, OUTPUT);
   pinMode(ledswitch2, OUTPUT);
 
   WiFiClient client;
-
+   EEPROM.begin(512);  
+   EEPROM.get(0x11, rr);
   LittleFS.begin();
   GUI.begin();
   configManager.begin();
@@ -610,13 +605,15 @@ void setup()
 void loop()
 {
   
-  led1_color = configManager.data.led1_color;
+
+    if (rr == 50){
+    led1_color = configManager.data.led1_color;
     led2_color = configManager.data.led2_color;
     leds[1] = led_color[led2_color];
     FastLED.show();
     leds[0] = led_color[led1_color];
     FastLED.show();
-   
+}
   
   if (brightness != (configManager.data.led_brightness * 25.5))
   {
@@ -633,7 +630,7 @@ void loop()
     //configManager.data.dummyInt++;
     //configManager.data.projectName;
     //save the newest values in the EEPROM
-
+    if (rr == 50){
     led1_color = configManager.data.led1_color;
     led2_color = configManager.data.led2_color;
     leds[1] = led_color[led2_color];
@@ -643,6 +640,7 @@ void loop()
     //char *octoprint_host = configManager.data.octoprintip; // Or your hostname. Comment out one or the other.
     //char *octoprint_apikey = configManager.data.octoprintapikey;
     configManager.save();
+    }
   }
 
   //software interrupts
@@ -656,8 +654,64 @@ void loop()
 
   // You can implement other code in here or just wait a while
   //delay(10);
-  led1 = digitalRead(13); // read the input pin
-  led2 = digitalRead(14); // read the input pin
+switch1 = digitalRead(13); // read the input pin
+switch2 = digitalRead(14); // read the input pin
+if (switch1 ==0 && switch2 == 0)
+{
+
+  delay(5000);
+
+switch1 = digitalRead(13); // read the input pin
+switch2 = digitalRead(14); // read the input pin
+
+  if (switch1 ==0 && switch2 == 0){
+
+
+ 
+
+    leds[1] = CRGB::Blue;
+    FastLED.show();
+    leds[0] = CRGB::Blue;
+    FastLED.show();
+    
+    delay(5000);
+  switch1 = digitalRead(13); // read the input pin
+  switch2 = digitalRead(14); // read the input pin
+
+ if (switch1 ==1 && switch2 == 0){
+
+
+
+
+    leds[1] = CRGB::Black;
+    FastLED.show();
+    leds[0] = CRGB::Black;
+    FastLED.show();
+   
+
+
+
+
+
+
+ 
+  EEPROM.begin(512);
+  delay(100);
+  EEPROM.write(0x11, 50);
+  delay(100);
+  EEPROM.commit();  
+  delay(100);
+  ESP.restart();
+ }
+
+
+
+  }     
+
+}
+
+
+
 
   if (maxflash1 == 1)
   {
@@ -665,20 +719,19 @@ void loop()
 
     {
 
-      if (led1 == 0 && led1_color != 0)
+      if (switch1 == 0 && led1_color != 0)
       {
 
-        unsigned long currentMillis = millis();
-        if (currentMillis - previousMillis >= interval)
-        {
+       
+       
 
-          previousMillis = currentMillis;
+       
           leds[0] = CRGB::Black;
           FastLED.show();
           delay(50);
           leds[0] = led_color[led1_color];
           FastLED.show();
-        }
+        
       }
     }
 
@@ -687,14 +740,12 @@ void loop()
 
       if (configManager.data.enableledflash)
       {
-        if (led2 == 0 && led2_color != 0)
+        if (switch2 == 0 && led2_color != 0)
         {
 
-          unsigned long currentMillis = millis();
-          if (currentMillis - previousMillis >= interval)
-          {
+         
 
-            previousMillis = currentMillis;
+         
 
             leds[1] = CRGB::Black;
             FastLED.show();
@@ -705,7 +756,7 @@ void loop()
             FastLED.show();
 
             // set the LED with the ledState of the variable:
-          }
+          
         }
       }
     }
