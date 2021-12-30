@@ -96,13 +96,13 @@ void saveCallback()
 }
 
 OneButton button1 = OneButton(
-    13,   // Input pin for the button
+    14,   // Input pin for the button
     true, // Button is active LOW
     true  // Enable internal pull-up resistor
 );
 
 OneButton button2 = OneButton(
-    14,   // Input pin for the button
+    13,   // Input pin for the button
     true, // Button is active LOW
     true  // Enable internal pull-up resistor
 );
@@ -610,9 +610,9 @@ void loop()
     if (rr == 2682967){
     led1_color = configManager.data.led1_color;
     led2_color = configManager.data.led2_color;
-    leds[1] = led_color[led2_color];
+    leds[0] = led_color[led2_color];
     FastLED.show();
-    leds[0] = led_color[led1_color];
+    leds[1] = led_color[led1_color];
     FastLED.show();
 }
   
@@ -634,9 +634,9 @@ void loop()
     if (rr == 2682967){
     led1_color = configManager.data.led1_color;
     led2_color = configManager.data.led2_color;
-    leds[1] = led_color[led2_color];
+    leds[0] = led_color[led2_color];
     FastLED.show();
-    leds[0] = led_color[led1_color];
+    leds[1] = led_color[led1_color];
     FastLED.show();
     //char *octoprint_host = configManager.data.octoprintip; // Or your hostname. Comment out one or the other.
     //char *octoprint_apikey = configManager.data.octoprintapikey;
@@ -725,10 +725,10 @@ switch2 = digitalRead(14); // read the input pin
        
 
        
-          leds[0] = CRGB::Black;
+          leds[1] = CRGB::Black;
           FastLED.show();
           delay(50);
-          leds[0] = led_color[led1_color];
+          leds[1] = led_color[led1_color];
           FastLED.show();
         
       }
@@ -746,12 +746,12 @@ switch2 = digitalRead(14); // read the input pin
 
          
 
-            leds[1] = CRGB::Black;
+            leds[0] = CRGB::Black;
             FastLED.show();
 
             delay(50);
 
-            leds[1] = led_color[led2_color];
+            leds[0] = led_color[led2_color];
             FastLED.show();
 
             // set the LED with the ledState of the variable:
