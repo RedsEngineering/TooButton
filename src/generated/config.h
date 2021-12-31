@@ -15,7 +15,7 @@ struct configData
 	uint16_t button2_doubleclick;
 	uint16_t button2_hold;
 	uint16_t led1_color;
-	uint16_t led2_color;
+	uint16_t led0_color;
 	uint16_t led_brightness;
 	char customgcode1[70];
 	char customgcode2[70];

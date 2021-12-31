@@ -48,8 +48,8 @@ CRGB led_color[] = {
     CRGB::Cyan,
     CRGB::Magenta,
     CRGB::Teal,
-    CRGB::LightBlue,
-    CRGB::Pink,
+    CRGB::Lime,
+    CRGB::Navy,
     CRGB::HotPink,
     CRGB::YellowGreen,
     CRGB::Gold,
@@ -67,10 +67,11 @@ CRGB led_color[] = {
 
 
 
-
-
+int led0_color = 0;
 int led1_color = 0;
-int led2_color = 0;
+
+//int led1_color = 0;
+//int led2_color = 0;
 #define ROW 20
 #define COL  20
 
@@ -95,6 +96,7 @@ long printed_timeout_timer = printed_timeout;
 int switch1;
 int switch2;
 int rr;
+int i=0;
 const long interval = 50;
 
 String luvmsg = "";
@@ -264,8 +266,7 @@ void octoPrnt(int opcall)
  
  Debug.println("Octoprint() call");
   delay(200);
-   leds[0] = led_color[led1_color];
-    FastLED.show();
+  
   
  
 
@@ -435,7 +436,7 @@ void octoPrnt(int opcall)
      size_t n = vSeparateSringByComma (gcode);
 
     for (size_t i = 0; i < n; i++){
-     //  Debug.printf ("ArrayOfString[%zu] : '%s'\n", i, ArrayOfString[i]);
+  
        strcpy(CMD, "{\"command\": \"");
        strcat(CMD, ArrayOfString[i]);
         strcat(CMD, "\"}");
@@ -505,10 +506,29 @@ void octoPrnt(int opcall)
  
 } // octoPrint
 
+void updateleds(){
+
+
+    led1_color = configManager.data.led1_color;
+    led0_color = configManager.data.led0_color;
+    leds[0] = led_color[led0_color];
+    FastLED.show();
+    leds[1] = led_color[led1_color];
+    
+    FastLED.setBrightness(configManager.data.led_brightness * 25.5);
+    brightness = (configManager.data.led_brightness * 25.5);
+    FastLED.show();
+    Debug.println("Update LED's");
+
+ 
+}
+
+
+
 
 void click1()
 {
- maxflash1 = 1;
+
   Debug.println("Button 1 click.");
  Debug.printf("Memory status: %d\n", rr);
 
@@ -517,7 +537,7 @@ void click1()
 
 void click2()
 {
-  maxflash2 = 1;
+ 
   Debug.println("Button 2 click.");
   octoPrnt(configManager.data.button2_click);
 } // click2
@@ -532,7 +552,7 @@ octoPrnt(configManager.data.button1_doubleclick);
 
 void doubleclick2()
 {
-  maxflash2 = 1;
+  
    Debug.println("Button 2 doubleclick.");
  octoPrnt(configManager.data.button2_doubleclick);
 } // doubleclick2
@@ -557,7 +577,7 @@ void longPressStop2()
 {
   maxflash2 = 1;
    Debug.println("Button 2 longPress stop");
- 
+  
 } // longPressStop2
 
 void longPressStop1()
@@ -565,8 +585,8 @@ void longPressStop1()
   maxflash1 = 1;
    Debug.println("Button 1 longPress stop");
  
+ 
 } // longPressStop2
-
 
 
 
@@ -627,21 +647,18 @@ void loop()
 {
   
 
-    if (rr == 2682967){
-    led1_color = configManager.data.led1_color;
-    led2_color = configManager.data.led2_color;
-    leds[0] = led_color[led2_color];
-    FastLED.show();
-    leds[1] = led_color[led1_color];
-    FastLED.show();
-}
-  
-  if (brightness != (configManager.data.led_brightness * 25.5))
-  {
 
-    FastLED.setBrightness(configManager.data.led_brightness * 25.5);
-    brightness = (configManager.data.led_brightness * 25.5);
-  }
+
+  if (rr == 2682967){
+if (led1_color !=configManager.data.led1_color||led0_color !=configManager.data.led0_color || brightness != (configManager.data.led_brightness* 25.5))
+updateleds();
+}
+
+
+
+
+
+   
 
   if (taskA.previous == 0 || (millis() - taskA.previous > taskA.rate))
   {
@@ -651,17 +668,11 @@ void loop()
     //configManager.data.dummyInt++;
     //configManager.data.projectName;
     //save the newest values in the EEPROM
-    if (rr == 2682967){
-    led1_color = configManager.data.led1_color;
-    led2_color = configManager.data.led2_color;
-    leds[0] = led_color[led2_color];
-    FastLED.show();
-    leds[1] = led_color[led1_color];
-    FastLED.show();
-    //char *octoprint_host = configManager.data.octoprintip; // Or your hostname. Comment out one or the other.
-    //char *octoprint_apikey = configManager.data.octoprintapikey;
+    
+    
     configManager.save();
-    }
+  
+   
   }
 
   //software interrupts
@@ -675,15 +686,15 @@ void loop()
 
   // You can implement other code in here or just wait a while
   //delay(10);
-switch1 = digitalRead(13); // read the input pin
-switch2 = digitalRead(14); // read the input pin
+switch1 = digitalRead(14); // read the input pin
+switch2 = digitalRead(13); // read the input pin
 if (switch1 ==0 && switch2 == 0)
 {
 
   delay(12000);
 
-switch1 = digitalRead(13); // read the input pin
-switch2 = digitalRead(14); // read the input pin
+switch1 = digitalRead(14); // read the input pin
+switch2 = digitalRead(13); // read the input pin
 
   if (switch1 ==0 && switch2 == 0){
 
@@ -696,8 +707,8 @@ switch2 = digitalRead(14); // read the input pin
     FastLED.show();
     
     delay(5000);
-  switch1 = digitalRead(13); // read the input pin
-  switch2 = digitalRead(14); // read the input pin
+  switch1 = digitalRead(14); // read the input pin
+  switch2 = digitalRead(13); // read the input pin
 
  if (switch1 ==1 && switch2 == 0){
 
@@ -741,15 +752,16 @@ switch2 = digitalRead(14); // read the input pin
       if (switch1 == 0 && led1_color != 0)
       {
 
-       
-       
-
-       
-          leds[0] = CRGB::Black;
+          leds[1] = CRGB::Black;
           FastLED.show();
-          delay(50);
-          leds[0] = led_color[led1_color];
+          leds[0] = led_color[led0_color];
           FastLED.show();
+          delay(60);
+          leds[1] = led_color[led1_color];
+          FastLED.show();
+          leds[0] = led_color[led0_color];
+          FastLED.show();
+        
         
       }
     }
@@ -759,22 +771,23 @@ switch2 = digitalRead(14); // read the input pin
 
       if (configManager.data.enableledflash)
       {
-        if (switch2 == 0 && led2_color != 0)
+        if (switch2 == 0 && led0_color != 0)
         {
 
+            leds[0] = CRGB::Black;
+            FastLED.show();
+            leds[1] = led_color[led1_color];
+            FastLED.show();
          
 
-         
+            delay(60);
 
-            leds[1] = CRGB::Black;
-            FastLED.show();
-
-            delay(50);
-
-            leds[1] = led_color[led2_color];
-            FastLED.show();
-
-            // set the LED with the ledState of the variable:
+           leds[0] = led_color[led0_color];
+           FastLED.show();
+           leds[1] = led_color[led1_color];
+           FastLED.show();
+          
+          
           
         }
       }
