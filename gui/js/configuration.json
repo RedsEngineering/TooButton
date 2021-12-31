@@ -115,8 +115,8 @@
         "length": 10, 
         "value": 6, 
         "control": "select", 
-        "options": [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ],
-        "optionLabels": [ "Off", "MidnightBlue", "Red","Green", "Purple", "Yellow", "Lime", "DarkViolet","Teal", "FireBrick", "White" ] 
+        "options": [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20 ],
+        "optionLabels": [ "Off", "White", "Orange","Red", "Green", "Yellow", "Blue", "Purple","Cyan", "Magenta", "Teal", "Pink", "HotPink", "YellowGreen", "gold", "Silver", "MediumTurqoise", "OrangeRed", "SlateBlue", "SlateGray", "MediumPurple", "MidnightBlue", "DarkSeaGreen" ] 
     },
    
 
@@ -127,8 +127,8 @@
         "length": 10, 
         "value": 6,
         "control": "select", 
-        "options": [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ],
-        "optionLabels": [ "Off", "MidnightBlue", "Red","Green", "Purple", "Yellow", "Lime", "DarkViolet","Teal", "FireBrick", "White" ] 
+        "options": [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20 ],
+        "optionLabels": [ "Off", "White", "Orange","Red", "Green", "Yellow", "Blue", "Purple","Cyan", "Magenta", "Teal", "Pink", "HotPink", "YellowGreen", "gold", "Silver", "MediumTurqoise", "OrangeRed", "SlateBlue", "SlateGray", "MediumPurple", "MidnightBlue", "DarkSeaGreen" ] 
     },
 
     {

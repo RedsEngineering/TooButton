@@ -38,16 +38,36 @@ configData data;
 CRGB leds[NUM_LEDS];
 CRGB led_color[] = {
     CRGB::Black,
-    CRGB::MidnightBlue,
+    CRGB::White,
+    CRGB::Orange,
     CRGB::Red,
     CRGB::Green,
-    CRGB::Purple,
     CRGB::Yellow,
-    CRGB::Lime,
-    CRGB::DarkViolet,
+    CRGB::Blue,
+    CRGB::Purple,
+    CRGB::Cyan,
+    CRGB::Magenta,
     CRGB::Teal,
-    CRGB::FireBrick,
-    CRGB::White};
+    CRGB::LightBlue,
+    CRGB::Pink,
+    CRGB::HotPink,
+    CRGB::YellowGreen,
+    CRGB::Gold,
+    CRGB::Silver,
+    CRGB::MediumTurquoise,
+    CRGB::OrangeRed,
+    CRGB::SlateBlue,
+    CRGB::SlateGray,
+    CRGB::MediumPurple,
+    CRGB::MidnightBlue,
+    CRGB::DarkSeaGreen};
+
+
+
+
+
+
+
 
 int led1_color = 0;
 int led2_color = 0;
