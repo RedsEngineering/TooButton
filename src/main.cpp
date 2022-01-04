@@ -13,7 +13,7 @@
 #include <EEPROM.h>
 //#include <ESP_Mail_Client.h>
 #define HOST_NAME "Too Button"
-
+String newHostname = "TooButton";
 
 #define XSTR(x) #x
 #define STR(x) XSTR(x)
@@ -602,9 +602,8 @@ void setup()
  
 
 
+
   
-
-
   pinMode(ledswitch1, OUTPUT);
   pinMode(ledswitch2, OUTPUT);
 
@@ -621,7 +620,7 @@ void setup()
   strcpy (version, AUTO_VERSION);
   int len = strlen(version);
   version[len-9] = '\0';
-  
+WiFi.hostname("TooButton");
   strcpy(configManager.data.projectVersion, version);
   Debug.begin(HOST_NAME);
   button1.attachClick(click1);
@@ -756,7 +755,7 @@ switch2 = digitalRead(13); // read the input pin
           FastLED.show();
           leds[0] = led_color[led0_color];
           FastLED.show();
-          delay(60);
+          delay(70);
           leds[1] = led_color[led1_color];
           FastLED.show();
           leds[0] = led_color[led0_color];
@@ -780,7 +779,7 @@ switch2 = digitalRead(13); // read the input pin
             FastLED.show();
          
 
-            delay(60);
+            delay(70);
 
            leds[0] = led_color[led0_color];
            FastLED.show();
