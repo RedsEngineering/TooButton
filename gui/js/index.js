@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 import {BrowserRouter, Switch, Route, NavLink} from "react-router-dom";
-import { FiBox as HeaderIcon } from "react-icons/fi";
-
+import { FiPrinter as HeaderIcon } from "react-icons/fi";
 import {GlobalStyle, Menu, Header, Page, Hamburger} from "./comp/UiComponents";
 import { WifiPage } from "./comp/WifiPage";
 import { ConfigPage } from "./comp/ConfigPage";
 import { DashboardPage } from "./comp/DashboardPage";
-import { FilePage } from "./comp/FilePage";
+//import { FilePage } from "./comp/FilePage";
 import { FirmwarePage } from "./comp/FirmwarePage";
 
 import { bin2obj } from "./functions/configHelpers";
@@ -84,7 +83,7 @@ function Root() {
                     <li><NavLink onClick={() => setMenu(false)} exact to="/">{loc.titleWifi}</NavLink></li>
                     <li><NavLink onClick={() => setMenu(false)} exact to="/dashboard">{loc.titleDash}</NavLink></li>
                     <li><NavLink onClick={() => setMenu(false)} exact to="/config">{loc.titleConf}</NavLink></li>
-                    <li><NavLink onClick={() => setMenu(false)} exact to="/files">{loc.titleFile}</NavLink></li>
+                  
                     <li><NavLink onClick={() => setMenu(false)} exact to="/firmware">{loc.titleFw}</NavLink></li>
                 </Menu>
 
@@ -92,9 +91,7 @@ function Root() {
         
             <Page>
                 <Switch>
-                    <Route exact path="/files">
-                        <FilePage API={url} />
-                    </Route>
+                    
                     <Route exact path="/config">
                         <ConfigPage API={url} 
                             configData={configData}
