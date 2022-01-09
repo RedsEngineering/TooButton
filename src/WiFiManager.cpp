@@ -17,7 +17,7 @@ void WifiManager::begin(char const *apName, unsigned long newTimeout)
     timeout = newTimeout;
 
     WiFi.mode(WIFI_STA);
-
+    WiFi.persistent(true); //added to fix bug #136
     //set static IP if entered
     ip = IPAddress(configManager.internal.ip);
     gw = IPAddress(configManager.internal.gw);

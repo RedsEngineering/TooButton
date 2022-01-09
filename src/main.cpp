@@ -33,7 +33,7 @@ configData data;
 
 #define FASTLED_ALLOW_INTERRUPTS 1
 
-
+char ttt[30];
  void octoprint(int);
 CRGB leds[NUM_LEDS];
 CRGB led_color[] = {
@@ -599,11 +599,11 @@ void longPressStop1()
 void setup()
 {
 
- 
 
 
 
-  
+
+  bool begin(int sampleTimeMs = 1000);
   pinMode(ledswitch1, OUTPUT);
   pinMode(ledswitch2, OUTPUT);
 
@@ -620,7 +620,11 @@ void setup()
   strcpy (version, AUTO_VERSION);
   int len = strlen(version);
   version[len-9] = '\0';
-WiFi.hostname("TooButton");
+  WiFi.hostname("TooButton");
+ // ttt= WiFi.macAddress();
+ // dash.data.projectName = WiFi.macAddress();
+  dash.data.projectName= WiFi.macAddress();
+ // strcpy(dash.data.projectName, WiFi.macAddress());
   strcpy(configManager.data.projectVersion, version);
   Debug.begin(HOST_NAME);
   button1.attachClick(click1);
