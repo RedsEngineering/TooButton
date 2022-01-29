@@ -212,34 +212,9 @@ if (!client3.connect(configManager.data.octoprintip, configManager.data.octoprin
 void smartplug()
 {
 
-  if (power == 1)
-  {
+ 
 
-    WiFiClient client;
-
-    if (!client.connect(configManager.data.tplinktip, 9999))
-    {
-      Debug.println("connection to tplink fail");
-
-      return;
-    }
-    else
-    {
-      Debug.println("connected to tplink, turning off.");
-
-      //char packet[] = "\x00\x00\x00*\xd0\xf2\x81\xf8\x8b\xff\x9a\xf7\xd5\xef\x94\xb6\xc5\xa0\xd4\x8b\xf9\x9c\xf0\x91\xe8\xb7\xc4\xb0\xd1\xa5\xc0\xe2\xd8\xa3\x81\xf2\x86\xe7\x93\xf6\xd4\xee\xdf\xa2\xdf\xa2";
-      char packet[] = "\x00\x00\x00*\xd0\xf2\x81\xf8\x8b\xff\x9a\xf7\xd5\xef\x94\xb6\xc5\xa0\xd4\x8b\xf9\x9c\xf0\x91\xe8\xb7\xc4\xb0\xd1\xa5\xc0\xe2\xd8\xa3\x81\xf2\x86\xe7\x93\xf6\xd4\xee\xde\xa3\xde\xa3";
-      client.write((const uint8_t *)packet, 64);
-
-      power = 0;
-
-      return;
-    }
-  }
-
-  if (power == 0)
-  {
-    if (rr != 2682967)
+   if (rr != 2682967)
      exit(0);
     WiFiClient client;
 
@@ -258,7 +233,7 @@ void smartplug()
 
       return;
     }
-  }
+ 
 }
 
 void octoPrnt(int opcall)
@@ -623,7 +598,7 @@ void setup()
   WiFi.hostname("TooButton");
  // ttt= WiFi.macAddress();
  // dash.data.projectName = WiFi.macAddress();
-  dash.data.projectName= WiFi.macAddress();
+ // dash.data.projectName= WiFi.macAddress();
  // strcpy(dash.data.projectName, WiFi.macAddress());
   strcpy(configManager.data.projectVersion, version);
   Debug.begin(HOST_NAME);
