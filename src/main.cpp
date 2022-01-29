@@ -260,7 +260,7 @@ void octoPrnt(int opcall)
       case 1:
        {
         if (power == 0) {
-         Debug.println("Octoprint() call");
+        
     
           Debug.printf("Power status: %s\n", configManager.data.tplinktip);
      if(strcmp(configManager.data.tplinktip, "0.0.0.0") == 0){
@@ -290,23 +290,10 @@ void octoPrnt(int opcall)
         delay(200);
         
         sendcommand("/api/system/commands/core/shutdown", "");
+        power=0;
+       
+       
         
-       
-       
-        if(strcmp(configManager.data.tplinktip, "0.0.0.0") != 0){
-         Debug.println("Turning smartplug Off, delay 15 seconds.");
-        delay(15000);
-      
-        Debug.println("");
-        delay(200);
-        smartplug();
-        }
-        else
-        {
-         
-        Debug.println("Cycling internal power status to off. No valid IP for Smart Plug. Just shutting down Octoprint.");
-         power=0;
-        }
 
        }
         
