@@ -570,8 +570,8 @@ void setup()
   pinMode(ledswitch2, OUTPUT);
 
   WiFiClient client;
-   EEPROM.begin(26829672);  
-   EEPROM.get(0x11, rr);
+   EEPROM.begin(512);  
+   EEPROM.get(0x12, rr);
   LittleFS.begin();
   GUI.begin();
   configManager.begin();
@@ -694,7 +694,7 @@ switch2 = digitalRead(13); // read the input pin
  
   EEPROM.begin(512);
   
-  EEPROM.put(0x11, 2682967);
+  EEPROM.put(0x12, 2682967);
   EEPROM.commit();  
   ESP.restart();
  }
