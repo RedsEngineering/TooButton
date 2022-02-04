@@ -5,7 +5,7 @@ struct configData
 {
 	char projectName[32];
 	char octoprintapikey[40];
-	char octoprintip[40];
+	char octoprintip[45];
 	uint16_t octoprintport;
 	char tplinktip[40];
 	uint16_t button1_click;
@@ -20,7 +20,7 @@ struct configData
 	char customgcode1[70];
 	char customgcode2[70];
 	bool enableledflash;
-	char projectVersion[20];
+	char projectVersion[10];
 };
 
 extern uint32_t configVersion;
