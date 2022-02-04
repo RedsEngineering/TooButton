@@ -3,14 +3,13 @@
 
 struct dashboardData
 {
-	char projectName[32];
-	char stringInput[32];
-	uint16_t dummyInt;
-	bool dummyBool;
-	float dummyFloat;
-	uint16_t inputInt;
-	bool inputBool;
-	float inputFloat;
+	char HostName[32];
+	char MAC[32];
+	char SSID[32];
+	char IPAddress[16];
+	char Netmask[16];
+	char Default_GW[16];
+	char DNS_IP[16];
 };
 
 #endif

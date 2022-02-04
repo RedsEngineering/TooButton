@@ -1,11 +1,11 @@
 #include <Arduino.h>
 #include "config.h"
 
-uint32_t configVersion = 1393693547; //generated identifier to compare config with EEPROM
+uint32_t configVersion = 154200385; //generated identifier to compare config with EEPROM
 
 const configData defaults PROGMEM =
 {
-	"Too Button",
+	"TooButton",
 	"Octoprint API Key",
 	"Octoprint IP Address",
 	5000,

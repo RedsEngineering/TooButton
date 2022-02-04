@@ -493,6 +493,18 @@ void click1()
 
   Debug.println("Button 1 click.");
  Debug.printf("Memory status: %d\n", rr);
+  Debug.println("local ip: ");
+ // Debug.println(WiFi.localIP());
+Debug.println(WiFi.macAddress());
+Debug.println(WiFi.SSID());
+Debug.println(WiFi.hostname());
+Debug.println(WiFi.subnetMask());
+Debug.println(WiFi.dnsIP());
+Debug.println(WiFi.gatewayIP());
+
+//String LocalIP = String() + WiFi.localIP()[0] + "." + WiFi.localIP()[1] + "." + WiFi.localIP()[2] + "." + WiFi.localIP()[3];
+//Debug.println(LocalIP);
+//LocalIP.toCharArray(dash.data.ipaddress, 20);
 
  octoPrnt(configManager.data.button1_click);
 } // click1
@@ -565,6 +577,9 @@ void setup()
 
 
 
+//Debug.println(LocalIP);
+//strcpy(LocalIP, dash.data.ipaddress);
+//const char* dash.data.ipaddress = LocalIP;
   bool begin(int sampleTimeMs = 1000);
   pinMode(ledswitch1, OUTPUT);
   pinMode(ledswitch2, OUTPUT);
@@ -582,7 +597,7 @@ void setup()
   strcpy (version, AUTO_VERSION);
   int len = strlen(version);
   version[len-9] = '\0';
-  WiFi.hostname("TooButton");
+  WiFi.hostname(configManager.data.projectName);
  // ttt= WiFi.macAddress();
  // dash.data.projectName = WiFi.macAddress();
  // dash.data.projectName= WiFi.macAddress();
@@ -606,6 +621,15 @@ void setup()
   FastLED.addLeds<CHIPSET, LED_PIN, COLOR_ORDER>(leds, NUM_LEDS).setCorrection(TypicalLEDStrip);
 
   FastLED.setBrightness(configManager.data.led_brightness * 25.5);
+IPAddress ip;
+Debug.printf("Memory status: %d\n", rr);
+//  Debug.println("local ip: ");
+ // ip =WiFi.localIP();
+ // strcpy (ip, dash.data.ipaddress);
+
+//IPAddress ip = WiFi.localIP();
+
+
 }
 
 void loop()
@@ -634,7 +658,28 @@ updateleds();
     //configManager.data.projectName;
     //save the newest values in the EEPROM
     
+    String LocalIP = String() + WiFi.localIP()[0] + "." + WiFi.localIP()[1] + "." + WiFi.localIP()[2] + "." + WiFi.localIP()[3];
+    LocalIP.toCharArray(dash.data.IPAddress, 20);
+
+    String GatewayIP = String() + WiFi.gatewayIP()[0] + "." + WiFi.gatewayIP()[1] + "." + WiFi.gatewayIP()[2] + "." + WiFi.gatewayIP()[3];
+    GatewayIP.toCharArray(dash.data.Default_GW, 20);
+
+    String SubnetMask = String() + WiFi.subnetMask()[0] + "." + WiFi.subnetMask()[1] + "." + WiFi.subnetMask()[2] + "." + WiFi.subnetMask()[3];
+    SubnetMask.toCharArray(dash.data.Netmask, 20);
+
+    String DNSIP = String() + WiFi.dnsIP()[0] + "." + WiFi.dnsIP()[1] + "." + WiFi.dnsIP()[2] + "." + WiFi.dnsIP()[3];
+    DNSIP.toCharArray(dash.data.DNS_IP, 20);
     
+    String SSID = WiFi.SSID();
+    SSID.toCharArray(dash.data.SSID, 32);
+
+    String MAC = WiFi.macAddress();
+    MAC.toCharArray(dash.data.MAC, 20);
+
+    String HostName = WiFi.hostname();
+    WiFi.hostname(configManager.data.projectName);
+    HostName.toCharArray(dash.data.HostName, 20);
+   
     configManager.save();
   
    

@@ -1,48 +1,47 @@
 [
     {
-        "name": "projectName",
+        "name": "HostName",
         "type": "char",
         "length": 32,
         "direction": "display"
     },
     {
-        "name": "stringInput",
+        "name": "MAC",
         "type": "char",
         "length": 32,
-        "direction": "control"
-    },
-    {
-        "name": "dummyInt",
-        "type": "uint16_t",
         "direction": "display"
     },
     {
-        "name": "dummyBool",
-        "type": "bool",
+        "name": "SSID",
+        "type": "char",
+        "length": 32,
         "direction": "display"
     },
     {
-        "name": "dummyFloat",
-        "type": "float",
-        "direction": "display",
-        "display": "graph",
-        "xaxis": 20
+        "name": "IPAddress",
+        "type": "char",
+        "length": 16,
+        "direction": "display"
     },
     {
-        "name": "inputInt",
-        "type": "uint16_t",
-        "direction": "control"
+        "name": "Netmask",
+        "type": "char",
+        "length": 16,
+        "direction": "display"
     },
     {
-        "name": "inputBool",
-        "type": "bool",
-        "direction": "control"
+        "name": "Default_GW",
+        "type": "char",
+        "length": 16,
+        "direction": "display"
     },
     {
-        "name": "inputFloat",
-        "type": "float",
-        "min": 1,
-        "max": 10,
-        "direction": "control"
+        "name": "DNS_IP",
+        "type": "char",
+        "length": 16,
+        "direction": "display"
     }
+    
+    
+       
 ]

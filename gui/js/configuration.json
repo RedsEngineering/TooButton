@@ -4,14 +4,14 @@
         "label": "System Name",
         "type": "char",
         "length": 32,
-        "value": "Too Button"
+        "value": "TooButton"
     },
     
     {
         "name": "octoprintapikey",
         "label": "Octoprint API Key",
         "type": "char",
-        "length": 40,
+        "length": 45,
         "value": "Octoprint API Key"
     },
    
@@ -20,7 +20,7 @@
         "name": "octoprintip",
         "label": "Octoprint IP Address",
         "type": "char",
-        "length": 40,
+        "length": 20,
         "value": "Octoprint IP Address"
     },
     
@@ -28,7 +28,7 @@
         "name": "octoprintport",
         "label": "Octoprint Port Number",
         "type": "uint16_t",
-        "length": 40,
+        "length": 10,
         "value": 5000
     },
   
@@ -38,14 +38,14 @@
         "name": "tplinktip",
         "label": "TPLink IP Address",
         "type": "char",
-        "length": 40,
+        "length": 20,
         "value": "0.0.0.0"
     },
     {
         "name": "button1_click",
         "label": "Button 1 Click",
         "type": "uint16_t",
-        "length": 40,
+        "length": 2,
         "value": 0,
         "control": "select", 
         "options": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
@@ -56,7 +56,7 @@
         "name": "button1_doubleclick",
         "label": "Button 1 Double Click",
         "type": "uint16_t",
-        "length": 40,
+        "length": 2,
         "value": 0,
         "control": "select", 
         "options": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
@@ -67,7 +67,7 @@
         "name": "button1_hold",
         "label": "Button 1 Click and Hold",
         "type": "uint16_t",
-        "length": 40,
+        "length": 2,
         "value": 0,
         "control": "select", 
         "options": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
@@ -79,7 +79,7 @@
         "name": "button2_click",
         "label": "Button 2 Click",
         "type": "uint16_t",
-        "length": 40,
+        "length": 2,
         "value": 0,
         "control": "select", 
         "options": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
@@ -90,7 +90,7 @@
         "name": "button2_doubleclick",
         "label": "Button 2 Double Click",
         "type": "uint16_t",
-        "length": 40,
+        "length": 2,
         "value": 0,
         "control": "select", 
         "options": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
@@ -101,7 +101,7 @@
         "name": "button2_hold",
         "label": "Button 2 Click and Hold",
         "type": "uint16_t",
-        "length": 40,
+        "length": 2,
         "value": 0,
         "control": "select", 
         "options": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
@@ -110,9 +110,9 @@
        
     {
         "name": "led1_color", 
-        "label": "LED 1 Color", 
+        "label": "Button 1 Color", 
         "type": "uint16_t",
-        "length": 10, 
+        "length": 2, 
         "value": 6, 
         "control": "select", 
         "options": [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21 ],
@@ -122,9 +122,9 @@
 
     {
         "name": "led0_color", 
-        "label": "LED 2 Color", 
+        "label": "Button 2 Color", 
         "type": "uint16_t",
-        "length": 10, 
+        "length": 2, 
         "value": 6,
         "control": "select", 
         "options": [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21 ],
@@ -135,7 +135,7 @@
         "name": "led_brightness", 
         "label": "LED Brightness", 
         "type": "uint16_t",
-        "length": 10, 
+        "length": 2, 
         "value": 10,
         "control": "select", 
         "options": [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ],
