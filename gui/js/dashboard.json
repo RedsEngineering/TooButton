@@ -2,42 +2,49 @@
     {
         "name": "HostName",
         "type": "char",
+        "label": "Host Name", 
         "length": 32,
         "direction": "display"
     },
     {
         "name": "MAC",
         "type": "char",
+        "label": "Mac Address", 
         "length": 32,
         "direction": "display"
     },
     {
         "name": "SSID",
         "type": "char",
+        "label": "SSID", 
         "length": 32,
         "direction": "display"
     },
     {
         "name": "IPAddress",
         "type": "char",
+        "label": "IP Address", 
         "length": 16,
         "direction": "display"
     },
     {
         "name": "Netmask",
         "type": "char",
+        "label": "NetMask", 
         "length": 16,
         "direction": "display"
     },
     {
         "name": "Default_GW",
         "type": "char",
+        "label": "Default Gateway", 
         "length": 16,
         "direction": "display"
     },
     {
         "name": "DNS_IP",
         "type": "char",
+        "label": "DNS Server", 
         "length": 16,
         "direction": "display"
     }

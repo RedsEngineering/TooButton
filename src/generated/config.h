@@ -20,6 +20,7 @@ struct configData
 	char customgcode1[70];
 	char customgcode2[70];
 	bool enableledflash;
+	bool enableledebug;
 	char projectVersion[10];
 };
 
