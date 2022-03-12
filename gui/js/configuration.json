@@ -138,8 +138,8 @@
         "length": 2, 
         "value": 10,
         "control": "select", 
-        "options": [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ],
-        "optionLabels": [ "Level 1", "Level 2", "Level 3","Level 4", "Level 5", "Level 6", "Level 7", "Level 8","Level 9", "Level 10" ] 
+        "options": [ 2, 4, 6, 8, 10 ],
+        "optionLabels": [ "Level 2", "Level 4", "Level 6","Level 8", "Level 10" ] 
     },
 
     {
